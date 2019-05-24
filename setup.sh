@@ -71,6 +71,6 @@ git clone https://github.com/darkoperator/dnsrecon.git
 git clone https://github.com/dafthack/MailSniper.git
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
-pip3 install -r requirements
+sudo python setup.py install
 cd ..
 
