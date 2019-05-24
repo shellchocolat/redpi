@@ -22,6 +22,7 @@ apt-get install -y macchanger
 apt-get install -y unzip
 apt-get install -y vim
 apt-get install -y autossh
+apt-get install -y swaks
 apt-get install -y openssh-client
 apt-get install -y onesixtyone 
 apt-get install -y bridge-utils 
@@ -50,6 +51,10 @@ git clone https://github.com/EmpireProject/Empire.git
 cd Empire/setup
 bash install.sh
 cd ../..
+git clone https://github.com/byt3bl33d3r/DeathStar.git
+cd DeathStar
+pip3 install -r requirements.txt
+cd ..
 git clone https://github.com/AlessandroZ/LaZagne.git
 cd LaZagne
 pip install -r requirements.txt
@@ -68,5 +73,11 @@ git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
 sudo python setup.py install
 cd ..
+
+cd ..
+
+echo "set number" >> /etc/vim/vimrc
+echo "set tabstop=4" >> /etc/vim/vimrc
+echo "colorscheme delek" >> /etc/vim/vimrc
 
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
