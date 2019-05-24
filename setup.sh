@@ -31,10 +31,6 @@ apt-get install -y ike-scan
 apt-ge	install -y proxychains
 apt-get install -y zsh
 
-wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O /tmp/install.sh
-cd /tmp
-bash install.sh
-cd ..
 wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
 
 pip install crackmapexec
@@ -73,3 +69,4 @@ cd impacket
 sudo python setup.py install
 cd ..
 
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
