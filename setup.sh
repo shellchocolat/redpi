@@ -31,8 +31,9 @@ apt-ge	install -y proxychains
 apt-get install -y zsh
 
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O /tmp/install.sh
-chmod +x /tmp/install.sh
-./tmp/install.sh
+cd /tmp
+bash install.sh
+cd ..
 wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
 
 pip install crackmapexec
@@ -70,6 +71,7 @@ git clone https://github.com/darkoperator/dnsrecon.git
 git clone https://github.com/dafthack/MailSniper.git
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
-pip install .
+pip install -r requirements
+bash setup.py
 cd ..
 
