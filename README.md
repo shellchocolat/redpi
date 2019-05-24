@@ -4,7 +4,7 @@ red team tools to install into a rpi
 ## install
 
 ```
-sudo setup.sh
+sudo ./setup.sh
 ```
 
 ## autossh
