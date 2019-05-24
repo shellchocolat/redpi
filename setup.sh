@@ -25,6 +25,7 @@ apt-get install -y autossh
 apt-get install -y openssh-client
 apt-get install -y onesixtyone 
 apt-get install -y bridge-utils 
+apt-get install -y sqlite3 libsqlite3-dev
 apt-get install -y ettercap-text-only 
 apt-get install -y ike-scan 
 apt-ge	install -y proxychains
@@ -50,17 +51,15 @@ git clone https://github.com/portcullislabs/enum4linux.git
 git clone https://github.com/samratashok/nishang.git
 git clone https://github.com/PowerShellMafia/PowerSploit.git
 git clone https://github.com/EmpireProject/Empire.git
-cd Empire
-./setup/install.sh
-cd ..
+cd Empire/setup
+bash install.sh
+cd ../..
 git clone https://github.com/AlessandroZ/LaZagne.git
 cd LaZagne
 pip install -r requirements.txt
 wget https://github.com/AlessandroZ/LaZagne/releases/download/v2.4.2/lazagne.exe
 cd ..
 wget https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1
-apt-get install sqlite3 libsqlite3-dev
-cd  ..
 git clone https://github.com/klsecservices/rpivot.git
 cd rpivot
 wget https://github.com/klsecservices/rpivot/releases/download/v1.0/client.exe
