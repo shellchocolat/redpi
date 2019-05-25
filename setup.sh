@@ -7,6 +7,7 @@ apt-get install -y python-pip
 apt-get install -y python3-pip 
 apt-get install -y libssl-dev libffi-dev python-dev build-essential
 apt-get install -y nbtscan 
+apt-get install -y dnsutils
 apt-get install -y python-scapy
 apt-get install -y wireshark-common 
 apt-get install -y tcpdump 
