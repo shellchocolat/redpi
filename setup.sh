@@ -31,6 +31,7 @@ apt-get install -y ettercap-text-only
 apt-get install -y ike-scan 
 apt-ge	install -y proxychains
 apt-get install -y zsh
+apt-get install -r ranger
 
 wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
 
