@@ -1,5 +1,7 @@
 #!/bin/bash
 
+add-apt-repository ppa:certbot/certbot
+
 apt-get update
 apt-get -y upgrade
 apt-get install -y git
@@ -32,7 +34,8 @@ apt-get install -y ettercap-text-only
 apt-get install -y ike-scan 
 apt-ge	install -y proxychains
 apt-get install -y zsh
-apt-get install -r ranger
+apt-get install -y ranger
+apt-get install -y python-certbot-apache
 
 wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
 
