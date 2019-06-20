@@ -12,7 +12,7 @@ sudo ./setup.sh
 In order to have a remote connexion to the raspberry:
 ```bash
 ssh-keygen -t rsa -b 4096
-ssh-copy-id ~/.ssh/id_rsa.pub user@domain -> to copy keys to the remote server
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@domain -> to copy keys to the remote server
 ssh user@domain -> to verify that we do not need password anymore to connect
 ```
 
@@ -105,6 +105,13 @@ On the server (VPS):
 sudo ptunnel -c ens3 -x SuperPassword
 ```
 
+On the client, if not already done with autossh:
+```bash
+ssh-keygen -t rsa -b 4096
+ssh-copy-id ~/.ssh/id_rsa.pub USER@domain -> to copy keys to the remote server
+ssh USER@domain -> to verify that we do not need password anymore to connect
+```
+
 On the client (raspberry), create a bash script:
 ```bash
 touch /home/pi/autoptunnel.sh
@@ -114,7 +121,8 @@ vim /home/pi/autoptunnel.sh
 #!/bin/bash
 /usr/sbin/ptunnel -p IP_SERVER -lp 8000 -da IP_SERVER -dp 22 -x SuperPassword &
 sleep 5
-ssh -N -R 2222:localhost:22 root@localhost -p 8000
+ssh -N -R 2222:localhost:22 USER@localhost -p 8000 -i ~/.ssh/id_rsa
+# do not take the same 2222 port as the one mentionned into the autossh section of course
 ```
 
 Then, still on the client, create a service:
