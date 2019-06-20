@@ -36,6 +36,7 @@ apt-ge	install -y proxychains
 apt-get install -y zsh
 apt-get install -y ranger
 apt-get install -y iodine
+apt-get install -y ptunnel
 apt-get install -y python-certbot-apache
 
 wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
