@@ -35,11 +35,10 @@ apt-get install -y ike-scan
 apt-ge	install -y proxychains
 apt-get install -y zsh
 apt-get install -y ranger
+apt-get install -y postgresql
 apt-get install -y iodine
 apt-get install -y ptunnel
 apt-get install -y python-certbot-apache
-
-wget http://seclists.org/nmap-dev/2016/q2/att-201/clamav-exec.nse -O /usr/share/nmap/scripts/clamav-exec.nse
 
 pip install crackmapexec
 pip install python-nmap 
@@ -83,8 +82,16 @@ cd ..
 
 cd ..
 
+# vim configuration
 echo "set number" >> /etc/vim/vimrc
 echo "set tabstop=4" >> /etc/vim/vimrc
 echo "colorscheme delek" >> /etc/vim/vimrc
 
+# install metasploit
+read -p "[*] do you want to install metasploit? [y/N] " answer
+if [ "$answer" == "y" ] || [ "$answer" == "Y" ]; then
+	curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
+fi
+
+# install oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
