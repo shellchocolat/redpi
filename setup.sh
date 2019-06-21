@@ -77,10 +77,17 @@ git clone https://github.com/darkoperator/dnsrecon.git
 git clone https://github.com/dafthack/MailSniper.git
 git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
-sudo python setup.py install
-cd ..
+python setup.py install
+cd .. 
+read -p "[*] do yo want to install warrberry on the pi? [y/N] " answer_warberry
+if [ "$answer_warberry" == "y" ] || [ "$answer_warberry" == "Y" ]; then
+	git clone https://github.com/secgroundzero/warberry.git
+	cd warberry
+	bash setup.sh
+	cd ..
+fi
 
-cd ..
+cd .. 
 
 # vim configuration
 echo "set number" >> /etc/vim/vimrc
