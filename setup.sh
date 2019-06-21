@@ -14,6 +14,9 @@ apt-get install -y python-scapy
 apt-get install -y wireshark-common 
 apt-get install -y tcpdump 
 apt-get install -y nmap  
+apt-get install -y eog
+apt-get install -y feh
+atp-get install -y kpcli
 apt-get install -y python-bluez 
 apt-get install -y python-requests
 apt-get install -y python-urllib3
