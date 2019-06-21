@@ -23,6 +23,7 @@ apt-get install -y python-urllib3
 apt-get install -y ppp 
 apt-get install -y xprobe2 
 apt-get install -y sg3-utils 
+apt-get install -y flameshot
 apt-get install -y netdiscover 
 apt-get install -y macchanger 
 apt-get install -y unzip
