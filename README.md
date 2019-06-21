@@ -98,7 +98,7 @@ Then you could connect to your domain, then ssh through dns tunnel to the raspbe
 ssh pi@172.16.0.1
 ```
 
-# ptunnel and backdoor throught icmp tunneling
+## ptunnel and backdoor throught icmp tunneling
 
 On the server (VPS):
 ```bash

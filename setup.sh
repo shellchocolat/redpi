@@ -88,10 +88,53 @@ echo "set tabstop=4" >> /etc/vim/vimrc
 echo "colorscheme delek" >> /etc/vim/vimrc
 
 # install metasploit
-read -p "[*] do you want to install metasploit? [y/N] " answer
-if [ "$answer" == "y" ] || [ "$answer" == "Y" ]; then
+read -p "[*] do you want to install metasploit? [y/N] " answer_metasploit
+if [ "$answer_metasploit" == "y" ] || [ "$answer_metasploit" == "Y" ]; then
 	curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
 fi
+
+# setup access point on the pi
+read -p "[*] do you want to setup an access point on the pi? [y/N] " answer_access_point
+if [ "$answer_access_point" == "y" ] || [ "$answer_access_point" == "Y" ]; then
+	apt-get install -y dnsmasq
+	apt-get install -y hostapd
+	# configuring a static ip
+	echo "interface wlan0" >> /etc/dhcpd.conf
+	echo "static ip_address=192.168.4.1/24" >> /etc/dhcpd.conf
+	echo "nohook wpa_supplicant" >> /etc/dhcpd.conf
+	systemctl restart dhcpcd
+	# configuring the dhcp server (dnsmasq)
+	mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+	touch /etc/dnsmasq.conf
+	echo "interface=wlan0" >> /etc/dnsmasq.conf
+	echo "dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h" >> /etc/dnsmasq.conf
+	systemctl reload dnsmasq
+	# configuring the access point host software (hostapd)
+	touch /etc/hostapd/hostapd.conf
+	read -p "[*] access point name (ssid): " ssid
+	read -p "[*] wpa_passphrase (>8 chars): " passphrase
+	echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
+	echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
+	echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
+	echo "hw_mode=g" >> /etc/hostapd/hostapd.conf
+	echo "channel=7" >> /etc/hostapd/hostapd.conf
+	echo "wmm_enabled=0" >> /etc/hostapd/hostapd.conf
+	echo "macaddr_acl=0" >> /etc/hostapd/hostapd.conf
+	echo "auth_algs=1" >> /etc/hostapd/hostapd.conf
+	echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf
+	echo "wpa=2" >> /etc/hostapd/hostapd.conf
+	echo "wpa_passphrase=$passphrase" >> /etc/hostapd/hostapd.conf
+	echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
+	echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
+	echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
+	
+	echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
+
+	systemctl unmask hostapd
+	systemctl enable hostapd
+	systemctl start hostapd
+fi
+
 
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
