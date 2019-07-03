@@ -13,6 +13,7 @@ apt-get install -y dnsutils
 apt-get install -y python-scapy
 apt-get install -y wireshark-common 
 apt-get install -y tcpdump 
+apt-get install -y netdiscover
 apt-get install -y nmap  
 apt-get install -y eog
 apt-get install -y feh
@@ -83,6 +84,7 @@ git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
 python setup.py install
 cd .. 
+# install warberry
 read -p "[*] do yo want to install warrberry on the pi? [y/N] " answer_warberry
 if [ "$answer_warberry" == "y" ] || [ "$answer_warberry" == "Y" ]; then
 	git clone https://github.com/secgroundzero/warberry.git
