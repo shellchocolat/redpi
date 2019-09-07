@@ -1,5 +1,11 @@
 #!/bin/bash
 
+read -p "[*] PI [1] or KALI [2]: " answer_os
+if [ "$answer_os" != "1" ] || [ "$answer_os" != "2" ]; then
+	echo "[-] please choose a value"
+	exit 1
+fi
+
 add-apt-repository ppa:certbot/certbot
 
 apt-get update
@@ -15,6 +21,7 @@ apt-get install -y wireshark-common
 apt-get install -y tcpdump 
 apt-get install -y netdiscover
 apt-get install -y nmap  
+apt-get install -y docker.io
 apt-get install -y eog
 apt-get install -y feh
 atp-get install -y kpcli
@@ -54,8 +61,19 @@ pip install netaddr
 pip install prettytable 
 pip install ipaddress
 
+cd .. # go out of the redpi directory
+
 mkdir Tools
 cd Tools
+wget https://raw.githubusercontent.com/sleventyeleven/linuxprivchecker/master/linuxprivchecker.py
+wget https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh
+git clone https://github.com/lanjelot/patator.git
+git clone https://github.com/smicallef/spiderfoot.git
+git clone https://github.com/ztgrace/changeme.git
+git clone https://github.com/ANSSI-FR/polichombr.git
+git clone https://github.com/Proxmark/proxmark3.git
+git clone https://github.com/sensepost/ruler.git
+git clone https://github.com/SabyasachiRana/WebMap.git
 git clone https://github.com/SpiderLabs/Responder.git
 git clone https://github.com/portcullislabs/enum4linux.git
 git clone https://github.com/samratashok/nishang.git
@@ -86,8 +104,9 @@ git clone https://github.com/SecureAuthCorp/impacket.git
 cd impacket
 python setup.py install
 cd .. 
+
 # install warberry
-read -p "[*] do yo want to install warrberry on the pi? [y/N] " answer_warberry
+read -p "[*] do yo want to install warrberry? [y/N] " answer_warberry
 if [ "$answer_warberry" == "y" ] || [ "$answer_warberry" == "Y" ]; then
 	git clone https://github.com/secgroundzero/warberry.git
 	cd warberry
@@ -103,53 +122,56 @@ echo "set tabstop=4" >> /etc/vim/vimrc
 echo "colorscheme delek" >> /etc/vim/vimrc
 
 # install metasploit
-read -p "[*] do you want to install metasploit? [y/N] " answer_metasploit
-if [ "$answer_metasploit" == "y" ] || [ "$answer_metasploit" == "Y" ]; then
-	curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
+if [ "$answer_os" == "1" ]; then
+	read -p "[*] do you want to install metasploit? [y/N] " answer_metasploit
+	if [ "$answer_metasploit" == "y" ] || [ "$answer_metasploit" == "Y" ]; then
+		curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
+	fi
 fi
 
 # setup access point on the pi
-read -p "[*] do you want to setup an access point on the pi? [y/N] " answer_access_point
-if [ "$answer_access_point" == "y" ] || [ "$answer_access_point" == "Y" ]; then
-	apt-get install -y dnsmasq
-	apt-get install -y hostapd
-	# configuring a static ip
-	echo "interface wlan0" >> /etc/dhcpd.conf
-	echo "static ip_address=192.168.4.1/24" >> /etc/dhcpd.conf
-	echo "nohook wpa_supplicant" >> /etc/dhcpd.conf
-	systemctl restart dhcpcd
-	# configuring the dhcp server (dnsmasq)
-	mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
-	touch /etc/dnsmasq.conf
-	echo "interface=wlan0" >> /etc/dnsmasq.conf
-	echo "dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h" >> /etc/dnsmasq.conf
-	systemctl reload dnsmasq
-	# configuring the access point host software (hostapd)
-	touch /etc/hostapd/hostapd.conf
-	read -p "[*] access point name (ssid): " ssid
-	read -p "[*] wpa_passphrase (>8 chars): " passphrase
-	echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
-	echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
-	echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
-	echo "hw_mode=g" >> /etc/hostapd/hostapd.conf
-	echo "channel=7" >> /etc/hostapd/hostapd.conf
-	echo "wmm_enabled=0" >> /etc/hostapd/hostapd.conf
-	echo "macaddr_acl=0" >> /etc/hostapd/hostapd.conf
-	echo "auth_algs=1" >> /etc/hostapd/hostapd.conf
-	echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf
-	echo "wpa=2" >> /etc/hostapd/hostapd.conf
-	echo "wpa_passphrase=$passphrase" >> /etc/hostapd/hostapd.conf
-	echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
-	echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
-	echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
+if [ "$answer_os" == "1" ]; then
+	read -p "[*] do you want to setup an access point? [y/N] " answer_access_point
+	if [ "$answer_access_point" == "y" ] || [ "$answer_access_point" == "Y" ]; then
+		apt-get install -y dnsmasq
+		apt-get install -y hostapd
+		# configuring a static ip
+		echo "interface wlan0" >> /etc/dhcpd.conf
+		echo "static ip_address=192.168.4.1/24" >> /etc/dhcpd.conf
+		echo "nohook wpa_supplicant" >> /etc/dhcpd.conf
+		systemctl restart dhcpcd
+		# configuring the dhcp server (dnsmasq)
+		mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+		touch /etc/dnsmasq.conf
+		echo "interface=wlan0" >> /etc/dnsmasq.conf
+		echo "dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h" >> /etc/dnsmasq.conf
+		systemctl reload dnsmasq
+		# configuring the access point host software (hostapd)
+		touch /etc/hostapd/hostapd.conf
+		read -p "[*] access point name (ssid): " ssid
+		read -p "[*] wpa_passphrase (>8 chars): " passphrase
+		echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
+		echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
+		echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
+		echo "hw_mode=g" >> /etc/hostapd/hostapd.conf
+		echo "channel=7" >> /etc/hostapd/hostapd.conf
+		echo "wmm_enabled=0" >> /etc/hostapd/hostapd.conf
+		echo "macaddr_acl=0" >> /etc/hostapd/hostapd.conf
+		echo "auth_algs=1" >> /etc/hostapd/hostapd.conf
+		echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf
+		echo "wpa=2" >> /etc/hostapd/hostapd.conf
+		echo "wpa_passphrase=$passphrase" >> /etc/hostapd/hostapd.conf
+		echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
+		echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
+		echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
+		
+		echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
 	
-	echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' >> /etc/default/hostapd
-
-	systemctl unmask hostapd
-	systemctl enable hostapd
-	systemctl start hostapd
+		systemctl unmask hostapd
+		systemctl enable hostapd
+		systemctl start hostapd
+	fi
 fi
-
 
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
