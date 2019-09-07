@@ -25,10 +25,11 @@ apt-get install -y ppp
 apt-get install -y xprobe2 
 apt-get install -y sg3-utils 
 apt-get install -y flameshot
-apt-get install fonts-powerline
+apt-get install -y fonts-powerline
 apt-get install -y netdiscover 
 apt-get install -y macchanger 
 apt-get install -y unzip
+apt-get install -y xserver-xorg-input-synaptics
 apt-get install -y vim
 apt-get install -y autossh
 apt-get install -y swaks
