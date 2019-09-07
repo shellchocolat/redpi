@@ -50,6 +50,7 @@ apt-get install -y ike-scan
 apt-ge	install -y proxychains
 apt-get install -y zsh
 apt-get install -y ranger
+apt-get install -y edb-debugger
 apt-get install -y postgresql
 apt-get install -y iodine
 apt-get install -y ptunnel
