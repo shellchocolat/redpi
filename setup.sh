@@ -10,6 +10,7 @@ add-apt-repository ppa:certbot/certbot
 
 apt-get update
 apt-get -y upgrade
+
 apt-get install -y git
 apt-get install -y python-pip 
 apt-get install -y python3-pip 
@@ -17,10 +18,7 @@ apt-get install -y libssl-dev libffi-dev python-dev build-essential
 apt-get install -y nbtscan 
 apt-get install -y dnsutils
 apt-get install -y python-scapy
-apt-get install -y wireshark-common 
 apt-get install -y tcpdump 
-apt-get install -y netdiscover
-apt-get install -y nmap  
 apt-get install -y docker.io
 apt-get install -y eog
 apt-get install -y feh
@@ -28,33 +26,44 @@ atp-get install -y kpcli
 apt-get install -y python-bluez 
 apt-get install -y python-requests
 apt-get install -y python-urllib3
-apt-get install -y ppp 
-apt-get install -y xprobe2 
-apt-get install -y sg3-utils 
-apt-get install -y flameshot
 apt-get install -y fonts-powerline
-apt-get install -y netdiscover 
-apt-get install -y macchanger 
 apt-get install -y unzip
 apt-get install -y xserver-xorg-input-synaptics
 apt-get install -y vim
-apt-get install -y autossh
 apt-get install -y swaks
 apt-get install -y kpcli
 apt-get install -y openssh-client
-apt-get install -y onesixtyone 
-apt-get install -y bridge-utils 
 apt-get install -y sqlite3 libsqlite3-dev
-apt-get install -y ettercap-text-only 
-apt-get install -y ike-scan 
-apt-ge	install -y proxychains
 apt-get install -y zsh
 apt-get install -y ranger
-apt-get install -y edb-debugger
-apt-get install -y postgresql
-apt-get install -y iodine
-apt-get install -y ptunnel
 apt-get install -y python-certbot-apache
+
+if [ "$answer_os" == "2" ]; then
+	apt-get	install -y proxychains
+	apt-get install -y ettercap-text-only 
+	apt-get install -y ike-scan 
+	apt-get install -y onesixtyone 
+	apt-get install -y bridge-utils 
+	apt-get install -y netdiscover 
+	apt-get install -y macchanger 
+	apt-get install -y netdiscover
+	apt-get install -y nmap  
+	apt-get install -y ppp 
+	apt-get install -y xprobe2 
+	apt-get install -y autossh
+	apt-get install -y postgresql
+	apt-get install -y iodine
+	apt-get install -y sg3-utils 
+	apt-get install -y ptunnel
+	apt-get install -y wireshark-common 
+fi
+
+if [ "$answer_os" == "2" ]; then
+	apt-get install -y edb-debugger
+	apt-get install -y virtualbox
+	apt-get install -y flameshot
+fi
+
 
 pip install crackmapexec
 pip install python-nmap 
