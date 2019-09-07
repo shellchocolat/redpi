@@ -174,5 +174,21 @@ if [ "$answer_os" == "1" ]; then
 	fi
 fi
 
+
+# install node js on kali
+if [ "$answer_os" == "2" ]; then
+	read -p "[*] do you want to install nodejs (npm and so on..) VERRRRRRY LOOOOOONG? [y/N] " answer_nodejs
+	if [ "$answer_nodejs" == "y" ] || [ "$answer_nodejs" == "Y" ]; then
+		apt-get -y install python g++ make checkinstall fakeroot
+		mkdir temp
+		cd temp
+		wget -N http://nodejs.org/dist/node-latest.tar.gz
+		tar xzvf node-latest.tar.gz && cd node-v*
+		./configure
+		fakeroot checkinstall -y --install=no --pkgversion $(echo $(pwd) | sed -n -re's/.+node-v(.+)$/\1/p') make -j$(($(nproc)+1)) install
+		dpkg -i node_*
+	fi	
+fi
+
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
