@@ -40,6 +40,7 @@ apt-get install -y xserver-xorg-input-synaptics
 apt-get install -y vim
 apt-get install -y autossh
 apt-get install -y swaks
+apt-get install -y kpcli
 apt-get install -y openssh-client
 apt-get install -y onesixtyone 
 apt-get install -y bridge-utils 
