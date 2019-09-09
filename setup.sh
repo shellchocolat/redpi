@@ -38,7 +38,8 @@ apt-get install -y zsh
 apt-get install -y ranger
 apt-get install -y python-certbot-apache
 
-if [ "$answer_os" == "2" ]; then
+# rpi
+if [ "$answer_os" == "1" ]; then
 	apt-get	install -y proxychains
 	apt-get install -y ettercap-text-only 
 	apt-get install -y ike-scan 
@@ -58,9 +59,11 @@ if [ "$answer_os" == "2" ]; then
 	apt-get install -y wireshark-common 
 fi
 
+# kali
 if [ "$answer_os" == "2" ]; then
 	apt-get install -y edb-debugger
 	apt-get install -y virtualbox
+	apt-get install -y libgconf-2-4
 	apt-get install -y flameshot
 fi
 
