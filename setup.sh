@@ -82,6 +82,7 @@ cd Tools
 wget https://raw.githubusercontent.com/sleventyeleven/linuxprivchecker/master/linuxprivchecker.py
 wget https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh
 git clone https://github.com/lanjelot/patator.git
+git clone https://github.com/aboul3la/Sublist3r.git
 git clone https://github.com/smicallef/spiderfoot.git
 git clone https://github.com/ztgrace/changeme.git
 git clone https://github.com/ANSSI-FR/polichombr.git
